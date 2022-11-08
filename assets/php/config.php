@@ -2,8 +2,8 @@
 
 class Database{
     
-    const USERNAME = 'ashcode2@gmail.com';
-    const PASSWORD = 'Bon@Gmail.com2';
+    const USERNAME = 'example@gmail.com';
+    const PASSWORD = 'password';
     
     private $dsn = "mysql:host=localhost;dbname=db_user_system";
     private $dbuser = "root";

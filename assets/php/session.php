@@ -23,6 +23,17 @@ $cphoto = $data['photo'];
 $created = $data['created_at'];
 $verified = $data['verified'];
 
+$reg_on = date('d M Y', strtotime($created));
+
+$verified = $data['verified'];
+
 $fname = strtok($cname, "");
+
+if($verified == 0){
+    $verified = 'Not Verified!';
+}
+else{
+    $verified = 'Verified';
+}
 
 ?>

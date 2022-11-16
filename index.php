@@ -3,6 +3,12 @@ session_start();
 if(isset($_SESSION['user'])){
     header('location:home.php');
 }
+include_once 'assets/php/config.php';
+$db = new Database();
+
+$sql = "UPDATE visitors SET hits = hits+1 WHERE id = 0";
+$stmt = $db->conn->prepare($sql);
+$stmt->execute();
 ?>
 
 <!DOCTYPE html>
@@ -15,7 +21,7 @@ if(isset($_SESSION['user'])){
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>UserManagement System Design project</title>
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="assets/css/style.css"
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
 </head>
 
 <body>

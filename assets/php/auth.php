@@ -71,6 +71,33 @@ class Auth extends Database{
         $stmt->execute(['pass'=>$pass, 'email'=>$email]);
         return true;
     }
+
+    //Add New Note
+    public function add_new_note($uid, $title, $note){
+        $sql = "INSERT INTO notes (uid, title, note) VALUES (:uid, :title, :note)";
+        
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute(['uid'=>$uid, 'title'=>$title, 'note'=>$note]);
+        return true;
+    }
+
+    //Fetch All Note of An user
+    public function get_notes($uid){
+        $sql = "SELECT * FROM notes WHERE uid = :uid";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute(['uid'=>$uid]);
+
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
+    }
+
+    //Update Profile of An USer
+    public function update_profile($name,$gender,$dob,$phone,$photo,$id){
+        $sql = "UPDATE users SET name = :name, gender = :gender, dob = :dob, phone = :phone, photo = :photo WHERE id = :id AND deleted = 0";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute(['name'=>$name, 'gender'=>$gender, 'dob'=>$dob, 'phone'=>$phone, 'photo'=>$photo, 'id'=>$id]);
+        return true;
+    }
 }
 
 ?>

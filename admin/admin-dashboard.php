@@ -1,8 +1,24 @@
 <?php
 
-require_once 'assets/php/admin-header.php';
-require_once 'assets/php/admin-db.php';
+require_once 'includes/php/admin-db.php';
 $count = new Admin();
+
+?>
+
+<?php 
+// require_once 'includes/db.php';
+// require_once('functions.php');
+require_once 'includes/header.php'; 
+?>
+
+
+<div class="row">
+                    <div class="col-lg-12 col-md-12">
+
+<?php 
+
+require_once 'includes/top_nav.php'; 
+require_once 'includes/nav.php';  
 
 ?>
 
@@ -150,5 +166,10 @@ $count = new Admin();
             chart.draw(data, options);
         }
 </script>
-</body>
-</html>
+
+
+
+ 
+
+
+<?php require_once "includes/footer.php";  ?>

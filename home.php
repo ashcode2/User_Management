@@ -1,5 +1,40 @@
+
+
+
 <?php
-require_once 'assets/php/header.php';
+require_once 'includes/header.php';
+require_once 'includes/pdo_db.php';
+
+
+?>
+
+ 
+
+<?php
+  
+ 
+
+$sql = "SELECT * FROM payment WHERE user='".$_SESSION['email']."'";
+//  $sql = "SELECT * FROM payment WHERE user = :$email";
+//  $sql = "SELECT * FROM payment WHERE user = user";
+$result = $pdo->query($sql);
+ $result->setFetchMode(PDO::FETCH_ASSOC);
+// $result = mysqli_query($conn, $sql) or die("database error:". mysqli_error($conn));
+// $row = mysqli_fetch_assoc($resultset);
+
+ 
+    while ($row = $result->fetch()): 
+    //   $balance=$row['balance']);  
+      $balance=$row['balance'];  
+      $deposit= $row['deposit'];  
+       $trans_b= $row['trans_b']; 
+        $trans_e= $row['trans_e']; 
+          $withdraw= $row['withdraw']; 
+           endwhile; 
+           
+           require_once 'includes/topnav.php';
+require_once 'includes/side_nav.php';
+
 ?>
 
 <!-- partial -->
@@ -22,8 +57,9 @@ require_once 'assets/php/header.php';
                         <div class="row">
                             <div class="col-9">
                                 <div class="d-flex align-items-center align-self-start">
-                                    <h3 class="mb-0">$0</h3>
-
+                                    <h3 class="mb-0">$<?php echo $balance; ?> 
+                                </h3>
+                        
                                 </div>
                             </div>
                             <div class="col-3">
@@ -42,7 +78,7 @@ require_once 'assets/php/header.php';
                         <div class="row">
                             <div class="col-9">
                                 <div class="d-flex align-items-center align-self-start">
-                                    <h3 class="mb-0">$0</h3>
+                                    <h3 class="mb-0">$<?php echo $deposit; ?></h3>
 
                                 </div>
                             </div>
@@ -62,7 +98,7 @@ require_once 'assets/php/header.php';
                         <div class="row">
                             <div class="col-9">
                                 <div class="d-flex align-items-center align-self-start">
-                                    <h3 class="mb-0">$0</h3>
+                                    <h3 class="mb-0">$<?php echo $withdraw; ?></h3>
 
                                 </div>
                             </div>
@@ -112,7 +148,7 @@ require_once 'assets/php/header.php';
                                 <!--     <p class="text-muted mb-0">07 Jan 2019, 09:12AM</p> -->
                             </div>
                             <div class="align-self-center flex-grow text-right text-md-center text-xl-right py-md-2 py-xl-0">
-                                <h6 class="font-weight-bold mb-0">$0</h6>
+                                <h6 class="font-weight-bold mb-0">$<?php echo $trans_b; ?></h6>
                             </div>
                         </div>
                         <div class="bg-gray-dark d-flex d-md-block d-xl-flex flex-row py-3 px-4 px-md-3 px-xl-4 rounded mt-3">
@@ -124,7 +160,7 @@ require_once 'assets/php/header.php';
 
                             </div>
                             <div class="align-self-center flex-grow text-right text-md-center text-xl-right py-md-2 py-xl-0">
-                                <h6 class="font-weight-bold mb-0">$0</h6>
+                                <h6 class="font-weight-bold mb-0">$<?php echo $trans_e; ?></h6>
                             </div>
                         </div>
                     </div>
@@ -155,6 +191,40 @@ require_once 'assets/php/header.php';
                                 <p class="text-muted">15 minutes ago</p>
                                 <p class="text-muted mb-0">30 tasks, 5 issues </p>
                               </div> -->
+
+                              
+<?php
+
+// $payment_id = $_GET['payment_id'];
+// $payment_id = 1;
+// $payment_id = $_SESSION['username'];
+
+// // $query = 'SELECT * FROM payment WHERE user = '.$payment_id.'';
+// $query = 'SELECT * FROM payment WHERE user = '.$payment_id.'';
+//   var_dump($query);
+//     //   $select_transactions_query = mysqli_query ($conn, $query) ;
+//     //   confirmQuery( $select_transactions_query ); 
+// // if(isset($_GET['payment_id'])){
+// //     $payment_id = $_GET['payment_id'];
+ 
+// //    $query = "SELECT * FROM payment WHERE user = $payment_id ";
+// //     $select_admin_query = mysqli_query($conn,$query);
+// //     confirmQuery($select_admin_query );
+//     while($row = mysqli_fetch_assoc($select_admin_query)) {
+ 
+//    $payment_id = $row['payment_id'];
+//     $balance = $row['balance'];
+//     $deposit = $row['deposit']; 
+//     $trans_b = $row['trans_b'];
+//   echo  $trans_e = $row['trans_e'];
+//    echo $user = $row['user'];
+ 
+//   }
+// // }
+// echo"hi";
+
+
+?>
                                             </div>
                                         </div>
 
@@ -246,5 +316,5 @@ require_once 'assets/php/header.php';
 
 
         <?php
-        require_once 'assets/php/footer.php';
+        require_once 'includes/footer.php';
         ?>

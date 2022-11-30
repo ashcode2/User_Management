@@ -1,8 +1,11 @@
+ 
+
 <?php
 
     session_start();
     if(isset($_SESSION['username'])){
         header('location:admin-dashboard.php');
+        // header('location:index.php');
         exit();
     }
     
@@ -71,7 +74,8 @@
 
                 $(this).val('Please Wait...');
                 $.ajax({
-                    url: 'assets/php/admin-action.php',
+                    // url: 'includes/php/admin-action.php',
+                    url: 'includes/php/admin-action.php',
                     method: 'post',
                     data: $("#admin-login-form").serialize()+'&action=adminLogin',
                     success:function(response){

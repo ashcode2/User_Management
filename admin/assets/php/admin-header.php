@@ -4,7 +4,9 @@ if (!isset($_SESSION['username'])) {
     header('location:index.php');
     exit();
 }
+
 ?>
+                <?php require_once('functions.php'); ?>
 
 
 <!DOCTYPE html>
@@ -17,9 +19,9 @@ if (!isset($_SESSION['username'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <?php
 
-    $title = basename($_SERVER['PHP_SELF'], '.php');
-    $title = explode('-', $title);
-    $title = ucfirst($title[1]);
+    // $title = basename($_SERVER['PHP_SELF'], '.php');
+    // $title = explode('-', $title);
+    // $title = ucfirst($title[1]);
     ?>
     <title><?= $title; ?> | Admin Panel</title>
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.min.css">
@@ -64,7 +66,13 @@ if (!isset($_SESSION['username'])) {
 <body>
     <div class="container-fluid">
         <div class="row">
-            <div class="admin-nav p-o">
+
+
+                   
+ 
+
+
+            <div class="admin-nav p-o col-md-3">
                 <h4 class="text-light text-center p-2">Admin Panel</h4>
 
                 <div class="list-group list-group-flush">
@@ -72,7 +80,7 @@ if (!isset($_SESSION['username'])) {
                         <i class="fas fa-chart-pie"></i>&nbsp;&nbsp;Dashboard</a>
 
                     <a href="admin-users.php" class="list-group-item text-light admin-link <?= (basename($_SERVER['PHP_SELF']) == 'admin-users.php') ? "nav-active" : ""; ?>">
-                        <i class=" fas fa-user-friends"></i>&nbsp;&nbsp;Users</a>
+                        <i class=" fas fa-user-friends"></i>&nbsp;&nbsp;View All Users</a>
 
                     <a href="admin-notes.php" class="list-group-item text-light admin-link <?= (basename($_SERVER['PHP_SELF']) == 'admin-notes.php') ? "nav-active" : ""; ?>">
                         <i class="fas fa-sticky-note"></i>&nbsp;&nbsp;Notes</a>
@@ -97,9 +105,7 @@ if (!isset($_SESSION['username'])) {
                 </div>
             </div>
 
-            <div class="col">
-                <div class="row">
-                    <div class="col-lg-12 bg-primary pt-2 justify-content-between d-flex">
+            <div class="col-md-9 bg-primary pt-2 justify-content-between d-flex">
                         <a href="#" class="text-white" id="open-nav">
                             <h3><i class="fas fa-bars"></i></h3>
                         </a>
@@ -108,4 +114,3 @@ if (!isset($_SESSION['username'])) {
 
                         <a href="assets/php/logout.php" class="text-light mt-1"><i class="fas fa-sign-out-alt"></i>&nbsp;Logout</a>
                     </div>
-                </div>

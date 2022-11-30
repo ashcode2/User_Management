@@ -1,6 +1,7 @@
 <?php
 
 require_once 'admin-db.php';
+require_once('../../functions.php');
 $admin = new Admin();
 session_start();
 
@@ -9,7 +10,8 @@ if(isset($_POST['action']) && $_POST['action'] == 'adminLogin'){
     $username = $admin->test_input($_POST['username']);
     $password = $admin->test_input($_POST['password']);
 
-    $hpassword = sha1($password);
+    // $hpassword = sha1($password);
+    $hpassword = $password;
 
     $loggedInAdmin = $admin->admin_login($username,$hpassword);
 
@@ -21,6 +23,24 @@ if(isset($_POST['action']) && $_POST['action'] == 'adminLogin'){
         echo $admin->showMessage('danger','Username or Password is Incorrect!');
     }
 }
+
+
+
+$query = "SELECT * FROM users WHERE id = 'name' ";
+
+// $select_users_by_id_query = mysqli_query($conn, $query);
+$select_users_by_id_query = $this-> conn->prepare($query);
+// $select_users_by_id_query->execute();
+confirmQuery($select_users_by_id_query);
+confirmQuery($select_users_by_id_query);
+$result = $select_users_by_id_query->fetchAll(PDO::FETCH_ASSOC);
+
+
+while($row = mysqli_fetch_assoc($select_users_by_id_query)){
+  $user_id = $row["id"];
+  $username = $row["name"];
+}
+
 
 //Handle Fetch All Users Ajax Request
 if(isset($_POST['action']) && $_POST['action'] == 'fetchAllUsers'){
@@ -53,20 +73,19 @@ if(isset($_POST['action']) && $_POST['action'] == 'fetchAllUsers'){
                     $output .= '<tr>
                                     <td>'.$row['id'].'</td>
                                     <td><img src="'.$uphoto.'" class="rounded-circle"
-                                        width="40px"></td>
+                                        width="40px" /></td>
                                     <td>'.$row['name'].'</td>
                                     <td>'.$row['email'].'</td>
                                     <td>'.$row['phone'].'</td>
                                     <td>'.$row['gender'].'</td>
                                     <td>'.$row['verified'].'</td>
                                     <td>
-                                        <a href="#" id="'.$row['id'].'" title="View Details"
-                                            class="text-primary userDetailsIcon"><i class="fas fa-info-circle fa-lg">
-                                            </i></a>&nbsp;&nbsp;
+                                       
 
-                                        a href="#" id="'.$row['id'].'" title="Delete User"
-                                            class="text-danger deleteUserIcon"><i class="fas fa-trash-alt fa-lg">
-                                            </i></a>&nbsp;&nbsp;
+                                            <a class="btn btn-primary" href="users.php?source=edit_user&id=$user_id">
+                                            Edit</a>
+                                            <a class="btn btn-danger fa-trash-alt" href="users.php?delete=$user_id">
+                                            Delete</a>
                                 </td>
                                 </tr>';
                 }
@@ -79,4 +98,25 @@ if(isset($_POST['action']) && $_POST['action'] == 'fetchAllUsers'){
     }
 }
 
+
+
+
+if(isset($_GET['delete'])){
+    // if(isset($_SESSION['username'])){
+    if($_SESSION['username'] == 'admin'){
+  
+  //    $this_user_id =mysqli_real_escape_string($connection, $_POST['user_id']);
+       $this_user_id = escape($_GET['delete']);
+   
+      $query = "DELETE FROM users WHERE id = $this_user_id";
+      $update_to_delete_status = mysqli_query($conn,$query);
+      confirmQuery($update_to_delete_status);
+   
+  //refreshing the page
+  header("location:./users.php");
+  //    }
+  }
+  }
+  
+  
 ?>
